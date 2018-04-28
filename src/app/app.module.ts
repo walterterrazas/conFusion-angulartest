@@ -11,7 +11,7 @@ import { DishdetailComponent } from './dishdetail/dishdetail.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
     MenuComponent,
     DishdetailComponent
   ],

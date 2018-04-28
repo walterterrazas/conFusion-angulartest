@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Dish } from '../shared/dish';
 
-const DISH = {
+
+/*const DISH = {
   name: 'Uthappizza',
   image: '/assets/images/uthappizza.png',
   category: 'mains',
@@ -40,6 +43,7 @@ const DISH = {
     }
   ]
 };
+*/
 
 @Component({
   selector: 'app-dishdetail',
@@ -47,11 +51,15 @@ const DISH = {
   styleUrls: ['./dishdetail.component.scss']
 })
 export class DishdetailComponent implements OnInit {
+	@Input()
+	dish: Dish;
 	
-	dish = DISH;
-  constructor() { }
+	//dish = DISH;
+	
+	
+	constructor() { }
 
-  ngOnInit() {
-  }
+	ngOnInit() {
+	}
 
 }
