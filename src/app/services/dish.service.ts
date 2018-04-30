@@ -7,7 +7,7 @@ export class DishService {
 
   constructor() { }
   
-  getDishes(): Dish[] {
+  /*getDishes(): Dish[] {
 	  return DISHES;
   }
   
@@ -17,6 +17,19 @@ export class DishService {
   
   getFeaturedDish(): Dish{
 	  return DISHES.filter((dish) => (dish.featured))[0]; //Featured is boolean
+  }*/
+  
+  
+  getDishes(): Promise<Dish[]> {
+	  return Promise.resolve(DISHES); //It works if you have the result immediatly
+  }
+  
+  getDish(id: number): Promise<Dish>{
+	  return Promise.resolve(DISHES.filter((dish) => (dish.id === id))[0]); 
+  }
+  
+  getFeaturedDish(): Promise<Dish>{
+	  return Promise.resolve(DISHES.filter((dish) => (dish.featured))[0]); 
   }
 
 }
