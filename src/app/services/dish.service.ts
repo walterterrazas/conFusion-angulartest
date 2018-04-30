@@ -21,15 +21,27 @@ export class DishService {
   
   
   getDishes(): Promise<Dish[]> {
-	  return Promise.resolve(DISHES); //It works if you have the result immediatly
+	  //return Promise.resolve(DISHES); //It works if you have the result immediatly
+	  return new Promise(resolve => {
+		//Simulate server latency
+		setTimeout(() => resolve(DISHES), 2000);
+	  });
   }
   
   getDish(id: number): Promise<Dish>{
-	  return Promise.resolve(DISHES.filter((dish) => (dish.id === id))[0]); 
+	  //return Promise.resolve(DISHES.filter((dish) => (dish.id === id))[0]); 
+	  return new Promise(resolve => {
+		//Simulate server latency
+		setTimeout(() => resolve(DISHES.filter((dish) => (dish.id === id))[0]), 2000);
+	  });
   }
   
   getFeaturedDish(): Promise<Dish>{
-	  return Promise.resolve(DISHES.filter((dish) => (dish.featured))[0]); 
+	  //return Promise.resolve(DISHES.filter((dish) => (dish.featured))[0]); 
+	  return new Promise(resolve => {
+		//Simulate server latency
+		setTimeout(() => resolve(DISHES.filter((dish) => (dish.featured))[0]), 2000);
+	  });
   }
 
 }
