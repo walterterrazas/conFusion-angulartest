@@ -7,6 +7,8 @@ import { Location } from '@angular/common';
 import { Dish } from '../shared/dish';
 import { DishService } from '../services/dish.service';
 
+import 'rxjs/add/operator/switchMap';
+
 
 /*const DISH = {
   name: 'Uthappizza',
@@ -58,17 +60,29 @@ import { DishService } from '../services/dish.service';
 export class DishdetailComponent implements OnInit {
 	//@Input()
 	dish: Dish;
-	
 	//dish = DISH;
 	
+	dishIds: number[];
+	prev: number;
+	next: number;
 	
 	constructor(private dishservice: DishService, private route: ActivatedRoute, private location: Location) { }
 
 	ngOnInit() {
-		let id = +this.route.snapshot.params['id'];
+		//let id = +this.route.snapshot.params['id'];
 		//this.dish = this.dishservice.getDish(id); //No promise
 		//this.dishservice.getDish(id).then(dish => this.dish = dish); //Promise
-		this.dishservice.getDish(id).subscribe(dish => this.dish = dish); //Observable
+		
+		this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
+		this.route.params
+			.switchMap((params: Params) => this.dishservice.getDish(+params['id']))
+			.subscribe(dish => {this.dish = dish; this.setPrevNext(dish.id)}); //Observable
+	}
+	
+	setPrevNext(dishId: number){
+		let index = this.dishIds.indexOf(dishId);
+		this.prev = this.dishIds[(this.dishIds.length + index - 1) % this.dishIds.length];
+		this.next = this.dishIds[(this.dishIds.length + index + 1) % this.dishIds.length];
 	}
 	
 	goBack(): void {
